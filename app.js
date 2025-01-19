@@ -19,7 +19,21 @@ class Patient {
     return Patient.patientHistory.filter((patient) => patient.treated);
   }
 
-  bookAppointment() {}
+  bookAppointment() {
+    // get the first free doctor (i.e doctor with appointments less than maxAppointment)
+    const freeDoctor = Doctor.doctors.find((doctor) => doctor.isFree());
+
+    if (!freeDoctor) {
+      console.log(
+        "Appointment booking failed, There's no doctor to attend to your appointment right now"
+      );
+      return false;
+    }
+
+    new Appointment(freeDoctor, this);
+    console.log("Appointment successfully booked");
+    return true;
+  }
 
   dismissPatient() {}
 }
