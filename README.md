@@ -8,7 +8,8 @@ The HMS allows hospital to manage doctor records, patient records and appointmen
 
 ![Class Diagram Image](./class-diagram.png)
 
-## Output Screenshoty
+## Output Screenshot
 
 ![Output Screenshot Image](./output.png)
+
 _You can also read the code to understand more from the comments_
