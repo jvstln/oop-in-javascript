@@ -35,7 +35,11 @@ class Patient {
     return true;
   }
 
-  dismissPatient() {}
+  dismissPatient() {
+    // When a patient is permanently unreachable or dead, then remove it from patient history
+    Patient.patientHistory.splice(Patient.patientHistory.indexOf(this), 1);
+    return true;
+  }
 }
 
 class Doctor {
