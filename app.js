@@ -99,3 +99,29 @@ class Appointment {
     this.patient.treated = true;
   }
 }
+
+// Usage
+const doctorJames = new Doctor("James");
+console.log(Doctor.doctors); // We only have one doctor for now
+
+// patients book appointments with any free doctor (in this cas doctorJames)
+// authomatically when they are admitted
+const patient1 = new Patient("Emeka");
+const patient2 = new Patient("Juliet");
+
+console.log(doctorJames.getAppointments());
+
+// Attend to the first created appointment which is the first admiited patient
+doctorJames.attendAppointment();
+
+console.log(Patient.getSickPatients()); // only patient2 because patient1 was treated during the appointment
+console.log(Patient.getTreatedPatients()); // only patient1 have been treated so far
+
+console.log(doctorJames.getAppointments()); // only patient is still left to be treated
+
+patient2.dismissPatient(); //patient probably died before and no longer exists
+
+console.log(doctorJames.getAppointments()); // no more patients since his last one died before appointment
+doctorJames.fire(); // This is just an example 😜
+
+console.log(Doctor.doctors); // doctorJames has been fired so no more doctors
