@@ -70,10 +70,14 @@ class Doctor {
   }
 
   isFree() {
-    return true;
+    return this.getAppointments().length < this.maxAppointment;
   }
 
-  fire() {}
+  fire() {
+    Doctor.doctors.splice(Doctor.doctors.indexOf(this), 1);
+    console.log("You've been fired");
+    return true;
+  }
 }
 
 class Appointment {
