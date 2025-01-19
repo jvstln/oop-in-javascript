@@ -52,7 +52,7 @@ class Doctor {
   }
 
   attendAppointment() {
-    const earliestAppointment = this.getAppointments()[0];
+    const earliestAppointment = this.getPendingAppointments()[0];
 
     if (!earliestAppointment) {
       console.log(
@@ -63,14 +63,21 @@ class Doctor {
     earliestAppointment.completeAppointment();
   }
 
-  getAppointments() {
+  getAllAppointment() {
+    // This gets both the completed and pending appointments from the current doctor
     return Appointment.appointmentHistory.filter(
       (appointment) => appointment.doctor.name === this.name
     );
   }
 
+  getPendingAppointments() {
+    return this.getAllAppointment().filter(
+      (appointment) => appointment.doctor.name === this.name
+    );
+  }
+
   isFree() {
-    return this.getAppointments().length < this.maxAppointment;
+    return this.getPendingAppointments().length < this.maxAppointment;
   }
 
   fire() {
@@ -121,7 +128,7 @@ console.log(Doctor.doctors); // We only have one doctor for now
 const patient1 = new Patient("Emeka");
 const patient2 = new Patient("Juliet");
 
-console.log(doctorJames.getAppointments());
+console.log(doctorJames.getPendingAppointments());
 
 // Attend to the first created appointment which is the first admiited patient
 doctorJames.attendAppointment();
@@ -129,11 +136,11 @@ doctorJames.attendAppointment();
 console.log(Patient.getSickPatients()); // only patient2 because patient1 was treated during the appointment
 console.log(Patient.getTreatedPatients()); // only patient1 have been treated so far
 
-console.log(doctorJames.getAppointments()); // only patient is still left to be treated
+console.log(doctorJames.getPendingAppointments()); // only patient is still left to be treated
 
 patient2.dismissPatient(); //patient probably died before and no longer exists
 
-console.log(doctorJames.getAppointments()); // no more patients since his last one died before appointment
+console.log(doctorJames.getPendingAppointments()); // no more patients since his last one died before appointment
 doctorJames.fire(); // This is just an example 😜
 
 console.log(Doctor.doctors); // doctorJames has been fired so no more doctors
