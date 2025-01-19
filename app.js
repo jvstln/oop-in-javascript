@@ -11,9 +11,13 @@ class Patient {
     this.bookAppointment();
   }
 
-  static getSickPatients() {}
+  static getSickPatients() {
+    return Patient.patientHistory.filter((patient) => !patient.treated);
+  }
 
-  static getTreatedPatients() {}
+  static getTreatedPatients() {
+    return Patient.patientHistory.filter((patient) => patient.treated);
+  }
 
   bookAppointment() {}
 
