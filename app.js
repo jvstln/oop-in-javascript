@@ -94,5 +94,8 @@ class Appointment {
     return `${this.doctor.name} has an appointment with ${this.patient.name}`;
   }
 
-  completeAppointment() {}
+  completeAppointment() {
+    this.completed = true;
+    this.patient.treated = true;
+  }
 }
