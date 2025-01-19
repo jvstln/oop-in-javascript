@@ -51,9 +51,23 @@ class Doctor {
     Doctor.doctors.push(this);
   }
 
-  attendAppointment() {}
+  attendAppointment() {
+    const earliestAppointment = this.getAppointments()[0];
 
-  getAppointments() {}
+    if (!earliestAppointment) {
+      console.log(
+        "You can relax doc, There's no appointment to attend to right now"
+      );
+    }
+
+    earliestAppointment.completeAppointment();
+  }
+
+  getAppointments() {
+    return Appointment.appointmentHistory.filter(
+      (appointment) => appointment.doctor.name === this.name
+    );
+  }
 
   isFree() {
     return true;
