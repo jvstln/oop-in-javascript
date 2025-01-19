@@ -37,6 +37,14 @@ class Patient {
   dismiss() {
     // When a patient is permanently unreachable or dead, then remove it from patient history
     Patient.patientHistory.splice(Patient.patientHistory.indexOf(this), 1);
+
+    // Remove all pending appointments
+    Appointment.getPendingAppointments().forEach((appointment) => {
+      if (appointment.patient.name === this.name) {
+        appointment.remove();
+      }
+    });
+
     console.log(`Patient ${this.name} has been dismissed`);
     return true;
   }
