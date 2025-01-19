@@ -71,7 +71,7 @@ class Doctor {
 
   getPendingAppointments() {
     return this.getAllAppointment().filter(
-      (appointment) => appointment.doctor.name === this.name
+      (appointment) => !appointment.completed
     );
   }
 
