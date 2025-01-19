@@ -34,9 +34,10 @@ class Patient {
     return true;
   }
 
-  dismissPatient() {
+  dismiss() {
     // When a patient is permanently unreachable or dead, then remove it from patient history
     Patient.patientHistory.splice(Patient.patientHistory.indexOf(this), 1);
+    console.log(`Patient ${this.name} has been dismissed`);
     return true;
   }
 }
@@ -57,9 +58,14 @@ class Doctor {
       console.log(
         "You can relax doc, There's no appointment to attend to right now"
       );
+      return false;
     }
 
     earliestAppointment.completeAppointment();
+    console.log(
+      `Doctor ${this.name} attended to ${earliestAppointment.patient.name}`
+    );
+    return true;
   }
 
   getAllAppointment() {
@@ -81,7 +87,7 @@ class Doctor {
 
   fire() {
     Doctor.doctors.splice(Doctor.doctors.indexOf(this), 1);
-    console.log("You've been fired");
+    console.log(`Doctor ${this.name}, You've been fired`);
     return true;
   }
 }
@@ -124,26 +130,36 @@ class Appointment {
 // Usage - You can comment and uncomment what you need for this usage example to work
 
 const doctorJames = new Doctor("James");
-console.log(Doctor.doctors); // We only have one doctor for now
+console.log("Doctors: ", Doctor.doctors); // We only have one doctor for now
 
 // patients book appointments with any free doctor (in this cas doctorJames)
 // authomatically when they are admitted
 const patient1 = new Patient("Emeka");
 const patient2 = new Patient("Juliet");
 
-console.log(doctorJames.getPendingAppointments());
+console.log(
+  "\nDoctor james current appointments",
+  doctorJames.getPendingAppointments()
+);
 
 // Attend to the first created appointment which is the first admiited patient
 doctorJames.attendAppointment();
 
-console.log(Patient.getSickPatients()); // only patient2 because patient1 was treated during the appointment
-console.log(Patient.getTreatedPatients()); // only patient1 have been treated so far
+console.log("\nSick patients: ", Patient.getSickPatients()); // only patient2 because patient1 was treated during the appointment
+console.log("Treated patients: ", Patient.getTreatedPatients()); // only patient1 have been treated so far
 
-console.log(doctorJames.getPendingAppointments()); // only patient is still left to be treated
+console.log(
+  "\nDoctor james current appointments",
+  doctorJames.getPendingAppointments()
+); // only patient is still left to be treated
 
-patient2.dismissPatient(); //patient probably died before and no longer exists
+patient2.dismiss(); //patient probably died before and no longer exists
 
-console.log(doctorJames.getPendingAppointments()); // no more patients since his last one died before appointment
+console.log(
+  "\nDoctor james current appointments",
+  doctorJames.getPendingAppointments()
+); // no more patients since his last one died before appointment
+
 doctorJames.fire(); // This is just an example 😜
 
-console.log(Doctor.doctors); // doctorJames has been fired so no more doctors
+console.log("Doctors: ", Doctor.doctors); // doctorJames has been fired so no more doctors
