@@ -31,7 +31,6 @@ class Patient {
     }
 
     new Appointment(freeDoctor, this);
-    console.log("Appointment successfully booked");
     return true;
   }
 
@@ -95,6 +94,9 @@ class Appointment {
     this.doctor = doctor;
     this.patient = patient;
     Appointment.appointmentHistory.push(this);
+    console.log(
+      `Appointment for Doctor:${doctor.name} and Patient:${patient.name} successfully booked`
+    );
   }
 
   static getCompletedAppointments() {
@@ -119,7 +121,8 @@ class Appointment {
   }
 }
 
-// Usage
+// Usage - You can comment and uncomment what you need for this usage example to work
+
 const doctorJames = new Doctor("James");
 console.log(Doctor.doctors); // We only have one doctor for now
 
