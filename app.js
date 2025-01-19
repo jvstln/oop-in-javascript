@@ -125,6 +125,22 @@ class Appointment {
     this.completed = true;
     this.patient.treated = true;
   }
+
+  remove() {
+    if (this.completed) {
+      console.log(`You cannot remove completed appointments`);
+      return false;
+    }
+
+    Appointment.appointmentHistory.splice(
+      Appointment.appointmentHistory.indexOf(this),
+      1
+    );
+    console.log(
+      `Appointment for Doctor:${this.doctor.name} and Patient:${this.patient.name} successfully removed`
+    );
+    return true;
+  }
 }
 
 // Usage - You can comment and uncomment what you need for this usage example to work
