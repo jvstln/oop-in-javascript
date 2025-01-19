@@ -90,6 +90,18 @@ class Appointment {
     Appointment.appointmentHistory.push(this);
   }
 
+  static getCompletedAppointments() {
+    return Appointment.appointmentHistory.filter(
+      (appointment) => appointment.completed
+    );
+  }
+
+  static getPendingAppointments() {
+    return Appointment.appointmentHistory.filter(
+      (appointment) => !appointment.completed
+    );
+  }
+
   getAppointmentDetails() {
     return `${this.doctor.name} has an appointment with ${this.patient.name}`;
   }
